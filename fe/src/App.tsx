@@ -1,28 +1,17 @@
-import React from 'react';
-import mainBg from './assets/mainBg.png';
-import { Stack } from '@mui/material';
-import { Autocomplete, TextField } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import React, { useState } from "react";
+import { MainContainer } from "./MainContainer";
+import { Header } from "./components/Header";
+import { MainInput } from "./components/MainInput";
 
-function App() {
+export const MOCK_MUSEUMS = ["Art Museum", "Russian Museum"];
+const App = () => {
+  const [value, setValue] = useState<string | null>(MOCK_MUSEUMS[0]);
   return (
-    <Stack sx={{backgroundImage: `url(${mainBg})`, backgroundSize: 'cover'}} height={'100vh'}>
-
-        <Autocomplete freeSolo
-        options={['option 1', 'option 2']}
-        renderInput={params => (
-          <TextField
-            {...params}
-            placeholder={'Select museum'}
-            InputProps={{
-              endAdornment: <SearchIcon sx={{ mr: 2 }} />,
-            }}
-          />
-        )}
-        fullWidth={true} />
-
-    </Stack>
+    <MainContainer>
+      <Header value={value} setValue={setValue} />
+      <MainInput selectedMuseum={value} />
+    </MainContainer>
   );
-}
+};
 
 export default App;
