@@ -1,25 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import mainBg from './assets/mainBg.png';
+import { Stack } from '@mui/material';
+import { Autocomplete, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Stack sx={{backgroundImage: `url(${mainBg})`, backgroundSize: 'cover'}} height={'100vh'}>
+
+        <Autocomplete freeSolo
+        options={['option 1', 'option 2']}
+        renderInput={params => (
+          <TextField
+            {...params}
+            placeholder={'Select museum'}
+            InputProps={{
+              endAdornment: <SearchIcon sx={{ mr: 2 }} />,
+            }}
+          />
+        )}
+        fullWidth={true} />
+
+    </Stack>
   );
 }
 

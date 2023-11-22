@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  background-image: url('./assets/main-bg.jpg'); /* путь к вашему изображению */
+  background-size: cover; /* изображение покрывает весь экран */
+  background-position: center; /* Центрирует изображение */
+  background-repeat: no-repeat; /* Предотвращает повторение изображения */
+  height: 100vh; /* Опционально, для установки высоты на весь экран */
+  margin: 0; /* Убирает стандартные отступы */
 }
 
 .App-logo {
