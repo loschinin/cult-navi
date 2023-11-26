@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const getMuseums = async () => {
-  const response = await axios.get<{ name: string }[]>("http://museums/", {
+  const response = await axios.get<string[]>("http://localhost:8000/museums", {
     headers: {
       "Content-Type": "application/json",
     },
