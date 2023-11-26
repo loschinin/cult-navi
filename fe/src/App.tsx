@@ -13,7 +13,10 @@ import kuindzhi from "./assets/kuindzhi.png";
 import erarta from "./assets/erarta.png";
 import newMuseum from "./assets/new.png";
 import shitglits from "./assets/shitglits.png";
-import { Stack, Typography } from "@mui/material";
+import logo from "./assets/logo.png";
+import {LinearProgress, Stack, Typography} from "@mui/material";
+import {useQuery} from "@tanstack/react-query";
+import {getMuseums} from "./services";
 
 const preloadImages = () => {
   const images = [
@@ -34,36 +37,43 @@ const preloadImages = () => {
     img.src = image;
   });
 };
-
+const museumsBackgrounds: Record<string, string> = {
+  "Государственный Эрмитаж": ermitazh,
+  "Музей Фаберже": faberzhe,
+  "Государственный Русский музей": russian,
+  "Летний сад": garden,
+  "Государственный музей городской скульптуры": sculpture,
+  "Музей-усадьба П. П. Чистякова": chistakov,
+  "Музей-квартира А. И. Куинджи": kuindzhi,
+  "Музей современного искусства Эрарта": erarta,
+  "Новый музей": newMuseum,
+  "Музей прикладного искусства СПбГХПА им.А.Л.Штиглица": shitglits,
+};
 const App = () => {
   useEffect(() => {
     preloadImages();
   }, []);
-  const museumsBackgrounds: Record<string, string> = {
-    "Государственный Эрмитаж": ermitazh,
-    "Музей Фаберже": faberzhe,
-    "Государственный Русский музей": russian,
-    "Летний сад": garden,
-    "Государственный музей городской скульптуры": sculpture,
-    "Музей-усадьба П. П. Чистякова": chistakov,
-    "Музей-квартира А. И. Куинджи": kuindzhi,
-    "Музей современного искусства Эрарта": erarta,
-    "Новый музей": newMuseum,
-    "Музей прикладного искусства СПбГХПА им.А.Л.Штиглица": shitglits,
-  };
+
   const MOCK_MUSEUMS = Object.keys(museumsBackgrounds);
   const [value, setValue] = useState<string | null>(null);
+  const { data: museums, isLoading: isMuseumsLoading } = useQuery(["museums"], getMuseums);
+
+  console.log("museums:", museums);
+
+  if (isMuseumsLoading) return <LinearProgress/>
+
   return (
     <MainContainer
       background={value ? museumsBackgrounds[value] || mainBg : mainBg}
     >
-      <Header value={value} setValue={setValue} options={MOCK_MUSEUMS} />
+      <Header value={value} setValue={setValue} options={museums || MOCK_MUSEUMS} />
       <Stack gap={1} alignItems={"center"}>
+        <img src={logo} alt={'logo'} width={200}/>
         <Typography variant={"h2"} color={"#ffffff"}>
-          Cultural Museum Navigator
+          Cultural Neural Navi
         </Typography>
         <Typography variant={"h6"} color={"#d0d0d0"}>
-          Your favorite guide by Saint-Petersburg Museums with Artificial
+          Your best Navigator by Saint-Petersburg Museums with Artificial
           Intelligence
         </Typography>
       </Stack>
