@@ -1,5 +1,11 @@
 # Getting Started with Create React App
 
+## Как запустить Фронт
+
+### Зайти в папку fe - cd fe и ввести команду npm i
+### а потом npm start
+### Проект запустится по адресу http://localhost:3001
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
