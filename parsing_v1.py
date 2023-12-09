@@ -36,6 +36,7 @@ headers = {
 response = requests.get('https://rusmuseum.ru/', cookies=cookies, headers=headers)
 
 
+
 with open('result.html', 'w') as file:
 
     file.write(response.text)
