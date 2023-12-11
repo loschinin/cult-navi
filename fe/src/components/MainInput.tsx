@@ -6,19 +6,19 @@ import { useMutation } from "@tanstack/react-query";
 import { postPrompt } from "../services";
 
 type Props = {
-  selectedMuseum: string | null;
+  name: string | null;
 };
 const INITIAL_MESSAGES: string[] = [];
-export const MainInput = ({ selectedMuseum }: Props) => {
+export const MainInput = ({ name }: Props) => {
   const [messages, setMessages] = useState<string[]>(INITIAL_MESSAGES);
   const [prompt, setPrompt] = useState("");
 
   const handleSendPrompt = () => {
     console.log("prompt:", prompt);
-    console.log("selectedMuseum:", selectedMuseum);
+    console.log("selectedMuseum:", name);
     setMessages((prevState) => [...prevState, prompt]);
     setPrompt("");
-    selectedMuseum && mutatePrompt({ selectedMuseum, prompt });
+    name && mutatePrompt({ name, prompt });
   };
   const handleKeyDown = (event: { key: string }) => {
     if (event.key === "Enter") {
@@ -27,8 +27,9 @@ export const MainInput = ({ selectedMuseum }: Props) => {
   };
 
   const { mutate: mutatePrompt } = useMutation(postPrompt, {
-    onSuccess: () => {
-      console.log("postPrompt success");
+    onSuccess: (data) => {
+      setMessages((prevState) => [...prevState, data.response])
+      console.log("postPrompt success", data.response);
     },
   });
 

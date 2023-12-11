@@ -11,9 +11,9 @@ export const getMuseums = async () => {
 };
 
 export const postPrompt = async (data: {
-  selectedMuseum: string;
+  name: string;
   prompt: string;
 }) => {
-  const response = await axios.post("url", data);
+  const response = await axios.post("http://localhost:8000/query", data);
   return response.data;
 };
