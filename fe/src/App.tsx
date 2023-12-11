@@ -77,7 +77,7 @@ const App = () => {
           Intelligence
         </Typography>
       </Stack>
-      <MainInput selectedMuseum={value} />
+      <MainInput name={value} />
     </MainContainer>
   );
 };
