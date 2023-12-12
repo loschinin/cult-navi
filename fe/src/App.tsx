@@ -8,7 +8,6 @@ import faberzhe from "./assets/faberzhe.png";
 import russian from "./assets/russian.png";
 import garden from "./assets/garden.png";
 import sculpture from "./assets/sculpture.png";
-import chistakov from "./assets/chistakov.png";
 import kuindzhi from "./assets/kuindzhi.png";
 import erarta from "./assets/erarta.png";
 import newMuseum from "./assets/new.png";
@@ -26,7 +25,6 @@ const preloadImages = () => {
     russian,
     garden,
     sculpture,
-    chistakov,
     kuindzhi,
     erarta,
     newMuseum,
@@ -43,7 +41,6 @@ const museumsBackgrounds: Record<string, string> = {
   "Государственный Русский музей": russian,
   "Летний сад": garden,
   "Государственный музей городской скульптуры": sculpture,
-  "Музей-усадьба П. П. Чистякова": chistakov,
   "Музей-квартира А. И. Куинджи": kuindzhi,
   "Музей современного искусства Эрарта": erarta,
   "Новый музей": newMuseum,
