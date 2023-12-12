@@ -5,7 +5,7 @@
 ### активируйте его source venv/bin/activate
 ### Зайти в папку be - pip install -r requirements.txt
 
-### запустите парсинг сайтов по расприсанию python3 parsing/run_schedule.py
+### запустите парсинг сайтов по расприсанию python3 run_schedule.py
 
 ### в новом терминале активируйте окружение, запустите endpoints командой uvicorn main:app --reload или ./venv/bin/uvicorn main:app --reload
 
