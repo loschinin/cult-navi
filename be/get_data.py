@@ -17,7 +17,7 @@ def get_data(url):
         # Extract text from each paragraph
         paragraphs_text = ' '.join(p.get_text(strip=True) for p in paragraphs if p.get_text(strip=True))
 
-        # Возвращаем название музея и текст всех параграфов
+        # Возвращаем текст всех параграфов
         return paragraphs_text
     else:
         print(f'Failed to retrieve content from {url}, status code {response.status_code}')
