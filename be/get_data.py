@@ -21,4 +21,4 @@ def get_data(url):
         return paragraphs_text
     else:
         print(f'Failed to retrieve content from {url}, status code {response.status_code}')
-        return None, None
+        return None
