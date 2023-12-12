@@ -33,7 +33,7 @@ def run_schedule(interval):
                 print(f'Data was successfully saved to {state_museum_of_urban_sculpture_path}')
             if museum_apartment_of_kuindzhi_path:
                 print(f'Data was successfully saved to {museum_apartment_of_kuindzhi_path}')
-            if erarta_path
+            if erarta_path:
                 print(f'Data was successfully saved to {erarta_path}')
             else:
                 print('Failed to save data.')
