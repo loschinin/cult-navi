@@ -36,9 +36,7 @@ def run_schedule(interval):
 
 
 # Интервал в секундах (1 месяц)
-# interval = int(1 * 30.44 * 24 * 60 * 60)
-
-interval = int(10 * 60)
+interval = int(1 * 30.44 * 24 * 60 * 60)
 
 # Запуск функции с интервалом.
 run_schedule(interval)
