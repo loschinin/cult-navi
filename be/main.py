@@ -60,7 +60,12 @@ async def query_museum(museum_request: MuseumRequest):
     # Отправка запроса к нейронной сети
     # response_from_neural_network = await query_neural_network(context, museum_request.prompt)
 
-    # TODO: удалить после того, как нейросеть будет подключена и заменить на нормальный ответ.
-    response_from_neural_network = f'Привет! Это нейросеть. Ты в {museum_request.name} завтра идешь? Билет возьми, я себе уже купила'
+    if museum_request.name == '':
+       response_from_neural_network = 'Пожалуйста, выберите музей из списка наверху.'
+    else:
+        # TODO: удалить после того, как нейросеть будет подключена и заменить на нормальный ответ.
+        response_from_neural_network = f'Привет! Это нейросеть. Ты в {museum_request.name} завтра идешь? Билет возьми, я себе уже купила'
+
+
 
     return {"response": response_from_neural_network}

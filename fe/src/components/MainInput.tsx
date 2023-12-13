@@ -18,7 +18,7 @@ export const MainInput = ({ name }: Props) => {
     console.log("selectedMuseum:", name);
     setMessages((prevState) => [...prevState, prompt]);
     setPrompt("");
-    name && mutatePrompt({ name, prompt });
+    mutatePrompt({ name: name || '', prompt });
   };
   const handleKeyDown = (event: { key: string }) => {
     if (event.key === "Enter") {

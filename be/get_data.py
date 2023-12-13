@@ -11,10 +11,10 @@ def get_data(url):
         # Инициализируем BeautifulSoup для парсинга страницы
         soup = BeautifulSoup(response.text, 'html.parser')
 
-        # Find all paragraph tags
+        # Находим все тэги р
         paragraphs = soup.find_all('p')
 
-        # Extract text from each paragraph
+        # Извлекаем текст из каждого параграфа
         paragraphs_text = ' '.join(p.get_text(strip=True) for p in paragraphs if p.get_text(strip=True))
 
         # Возвращаем текст всех параграфов
