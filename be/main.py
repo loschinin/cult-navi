@@ -125,8 +125,6 @@ async def query_museum(museum_request: MuseumRequest):
     if museum_request.name == '':
        response_from_neural_network = 'Пожалуйста, выберите музей из списка наверху.'
     else:
-        # TODO: удалить после того, как нейросеть будет подключена и заменить на нормальный ответ.
-        # response_from_neural_network = f'Привет! Это нейросеть. Ты в {museum_request.name} завтра идешь? Билет возьми, я себе уже купила'
         response_from_neural_network = llm_answer(museum_request.prompt, chat_history, qa)
 
 
