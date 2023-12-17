@@ -4,7 +4,9 @@ from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from langchain.retrievers import WikipediaRetriever
 from langchain.chat_models.gigachat import GigaChat
-from langchain.chains import ConversationalRetrievalChain
+# from langchain.chains import ConversationalRetrievalChain
+from langchain.prompts import PromptTemplate
+from langchain.chains import LLMChain
 
 app = FastAPI()
 
@@ -18,12 +20,30 @@ app.add_middleware(
 )
 
 
-def llm_answer(question:str, chat_history:list, qa) -> str:
-    result = qa({"question": question, "chat_history": chat_history})
-    chat_history.append((question, result["answer"])) 
-    return result['answer']
+# def llm_answer(question:str, chat_history:list, qa) -> str:
+#     result = qa({"question": question, "chat_history": chat_history})
+#     chat_history.append((question, result["answer"])) 
+#     return result['answer']
 
-giga = GigaChat(credentials='YWEyOWY4Y2EtYWI0MC00M2RlLWEzZDQtY2VkZTUwYzdhYTFhOjU4ODUwNTkxLTkzMjAtNGNiOC05YWZlLTQ1YjFjMmY3ODdiMw==', verify_ssl_certs=False)
+
+def llm_answer(question: str, museum: str) -> str:
+    # raw_answer = db.similarity_search_with_score(question)
+    giga = GigaChat(credentials='YWEyOWY4Y2EtYWI0MC00M2RlLWEzZDQtY2VkZTUwYzdhYTFhOjU4ODUwNTkxLTkzMjAtNGNiOC05YWZlLTQ1YjFjMmY3ODdiMw==', verify_ssl_certs=False)
+    
+    docs = retriever.get_relevant_documents(query=museum, lang="ru")
+    doc = docs[0].metadata
+    doc['question'] = question
+    prompt_template = """ Представь, что ты специалист по музеям Санкт-Петербурга.
+    Ответь на вопрос: '{question}' используя ТОЛЬКО информацию из документа: 
+    ```{summary}```.
+    Твой ответ должен быть сухим, кратким и релевантным вопросу. Выведи только свой ответ."""
+
+    PROMPT = PromptTemplate(template=prompt_template,
+                            input_variables=['question', 'summary'])
+
+    qa_chain = LLMChain(prompt=PROMPT,llm=giga)
+    answer = qa_chain.run(doc)
+    return answer.strip()
 
 # Музеи, с которыми мы работаем.
 museums_info = [
@@ -85,7 +105,7 @@ museums_info = [
 
 ]
 retriever = WikipediaRetriever(lang='ru', load_max_docs=2)
-chat_history = []
+# chat_history = []
 
 @app.get("/museums")
 async def get_museums():
@@ -105,8 +125,6 @@ async def query_museum(museum_request: MuseumRequest):
     new_context_df = pd.read_csv(f'./museums_data.csv')
 
     filtered_df = new_context_df[new_context_df['name'] == museum_request.name]
-    docs = retriever.get_relevant_documents(query=museum_request.name, lang="ru")
-    qa = ConversationalRetrievalChain.from_llm(giga, retriever=retriever)
 
     # Check if any data is found
     if not filtered_df.empty:
@@ -125,7 +143,8 @@ async def query_museum(museum_request: MuseumRequest):
     if museum_request.name == '':
        response_from_neural_network = 'Пожалуйста, выберите музей из списка наверху.'
     else:
-        response_from_neural_network = llm_answer(museum_request.prompt, chat_history, qa)
+        # response_from_neural_network = llm_answer(museum_request.prompt, chat_history, qa)
+        response_from_neural_network = llm_answer(museum_request.prompt, museum_request.name)
 
 
     return {"response": response_from_neural_network}
