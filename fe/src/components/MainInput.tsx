@@ -40,12 +40,14 @@ export const MainInput = ({ name }: Props) => {
     }
   };
 
-  const { mutate: mutatePrompt, isLoading: isMutatePromptLoading, error } = useMutation<{response: string}, ApiError, Parameters<typeof postPrompt>[0]>(postPrompt, {
+  const { mutate: mutatePrompt, isLoading: isMutatePromptLoading } = useMutation<{response: string}, ApiError, Parameters<typeof postPrompt>[0]>(postPrompt, {
     onSuccess: (data) => {
       setMessages((prevState) => [...prevState, data.response])
       console.log("postPrompt success", data.response);
     },
     onError: (error) => {
+      const err = error?.response?.data?.message
+      err && setMessages((prevState) => [...prevState, err])
       console.log('onError:', error)
     }
   });
@@ -72,10 +74,8 @@ export const MainInput = ({ name }: Props) => {
           </Typography>
         ))}
         {isMutatePromptLoading && <LinearProgress/>}
-        <Typography variant={'caption'} color={'mediumvioletred'}>{error?.response?.data?.message}</Typography>
         <TextField
           value={prompt}
-          variant={'standard'}
           onChange={(e) => setPrompt(e.target.value)}
           placeholder={"Ask AI..."}
           onKeyDown={handleKeyDown}
