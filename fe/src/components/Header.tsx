@@ -10,7 +10,7 @@ export const Header = ({ value, setValue, options }: Props) => {
   const [inputValue, setInputValue] = useState("");
 
   return (
-    <Paper sx={{ p: 3 }}>
+    <Paper sx={{ p: 3, position: 'fixed', zIndex: 100 }}>
      <Stack direction={"row"} alignItems={"center"}>
         <Autocomplete
             value={value}

@@ -2,7 +2,7 @@ import time
 import pandas as pd
 from get_data import get_data
 
-from main import museums_info
+from museums_list import museums_list
 
 # По расприсанию через определенный интервал времени будет вызываться эта функция
 
@@ -15,7 +15,7 @@ def run_schedule(interval):
             df = pd.DataFrame(columns=["id", "name", "data"])
 
             # Перебор информации о музеях и парсинг данных
-            for museum in museums_info:
+            for museum in museums_list:
                 museum_data = get_data(museum['url'])
                 if museum_data:
                     # Добавление результатов в DataFrame

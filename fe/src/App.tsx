@@ -55,7 +55,7 @@ const App = () => {
   const [value, setValue] = useState<string | null>(null);
   const { data: museums, isLoading: isMuseumsLoading } = useQuery(["museums"], getMuseums);
 
-  console.log("museums:", museums);
+
 
   if (isMuseumsLoading) return <LinearProgress/>
 
@@ -64,6 +64,7 @@ const App = () => {
       background={value ? museumsBackgrounds[value] || mainBg : mainBg}
     >
       <Header value={value} setValue={setValue} options={museums || MOCK_MUSEUMS} />
+      <br/>
       <Stack gap={1} alignItems={"center"}>
         <img src={logo} alt={'logo'} width={200}/>
         <Typography variant={"h2"} color={"#ffffff"}>
